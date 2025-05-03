@@ -1,113 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wisdom Tree - Thoughtful Reflections</title>
-    <style>
-        body {
-            background: linear-gradient(45deg, #000F1F, #002040, #001E3C, #003355);
-            background-size: 300% 300%;
-            animation: darkBackgroundFlow 10s infinite alternate ease-in-out;
-            color: white;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-            padding: 50px;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wisdom Tree - Thoughtful Reflections</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(45deg, #000F1F, #002040, #001E3C, #003355);
+      background-size: 300% 300%;
+      animation: darkBackgroundFlow 10s infinite alternate ease-in-out;
+      color: white;
+      font-family: 'Comic Neue', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+    }
 
-        @keyframes darkBackgroundFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
+    @keyframes darkBackgroundFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-        button {
-            background: linear-gradient(45deg, #002244, #003366);
-            border: none;
-            padding: 10px 30px;
-            font-size: 1.5em;
-            color: white;
-            cursor: pointer;
-            margin: 40px auto;
-            display: block;
-            border-radius: 40px;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-        }
+    button {
+      background: linear-gradient(45deg, #002244, #003366);
+      border: none;
+      padding: 10px 30px;
+      font-size: 1.5em;
+      color: white;
+      cursor: pointer;
+      margin: 40px auto;
+      display: block;
+      border-radius: 40px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease;
+    }
 
-        .quote {
-            margin-top: 30px;
-            font-size: 1.8em;
-            font-family: "Comic Sans MS", cursive, sans-serif;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.4);
-            max-width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.3;
-        }
+    button:hover {
+      transform: scale(1.05);
+    }
 
-        .example {
-            font-size: 1.2em;
-            font-style: italic;
-            color: #DDD;
-            max-width: 70%;
-            margin: 10px auto;
-        }
+    .quote {
+      margin-top: 30px;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.4);
+      max-width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.3;
+    }
 
-        .application {
-            font-size: 1.1em;
-            color: #BBB;
-            max-width: 70%;
-            margin: 20px auto;
-            padding-left: 0;
-            list-style-type: disc;
-            text-align: left;
-        }
-        .application li {
-            margin-bottom: 8px;
-        }
+    .example {
+      font-size: 1.2em;
+      font-style: italic;
+      color: #DDD;
+      max-width: 70%;
+      margin: 10px auto;
+    }
 
-        .bubble {
-            position: absolute;
-            bottom: -50px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: riseBubbles 6s infinite ease-in-out;
-        }
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: riseBubbles 6s ease-in-out forwards;
+    }
 
-        @keyframes riseBubbles {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-700px) scale(1.5); opacity: 0; }
-        }
-    </style>
+    @keyframes riseBubbles {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-700px) scale(1.5); opacity: 0; }
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      .quote, .example {
+        max-width: 95%;
+        font-size: 1.2em;
+      }
+
+      button {
+        font-size: 1.2em;
+        padding: 8px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <button onclick="revealWisdom()">Begin Your Journey</button>
-    <p class="quote" id="quoteDisplay"></p>
-    <p class="example" id="exampleDisplay"></p>
-    <ul id="applicationList" class="application"></ul>
+  <button onclick="revealWisdom()" id="journeyBtn">Begin Your Journey</button>
+  <p class="quote" id="quoteDisplay"></p>
+  <p class="example" id="exampleDisplay"></p>
 
-    <script>
-        function createBubble() {
-            let bubble = document.createElement("div");
-            bubble.classList.add("bubble");
-            document.body.appendChild(bubble);
+  <script>
+    function createBubble() {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      document.body.appendChild(bubble);
 
-            bubble.style.left = Math.random() * window.innerWidth + "px";
-            bubble.style.animationDuration = 3 + Math.random() * 3 + "s";
+      bubble.style.left = Math.random() * window.innerWidth + "px";
+      bubble.style.animationDuration = 3 + Math.random() * 3 + "s";
 
-            setTimeout(() => { bubble.remove(); }, 6000);
-        }
+      setTimeout(() => bubble.remove(), 6000);
+    }
 
-        setInterval(createBubble, 500);
+    setInterval(createBubble, 1000);
 
-        let clickCount = 0;
-        const wisdomData = [
-        {
+    let clickCount = 0;
+    const quoteDisplay = document.getElementById("quoteDisplay");
+    const exampleDisplay = document.getElementById("exampleDisplay");
+    const journeyBtn = document.getElementById("journeyBtn");
+
+    const wisdomData = [
+    {
     quote: "Know thyself. – Socrates",
     example: "A student began noticing they were more productive in the morning and started organizing their study schedule around that time.",
     application: [
@@ -647,41 +658,33 @@
         "Ask others what they think is true."
     ]
 }
-   
-            // Add 92 more entries here using the same structure
-        ];
+      // Add more wisdom objects here
+    ];
 
-        function revealWisdom() {
-            clickCount++;
+    function revealWisdom() {
+      clickCount++;
 
-            let quoteDisplay = document.getElementById("quoteDisplay");
-            let exampleDisplay = document.getElementById("exampleDisplay");
-            let applicationList = document.getElementById("applicationList");
-            applicationList.innerHTML = ""; // clear old tips
+      if (clickCount === 1) {
+        quoteDisplay.innerText = "Hello, traveler. A thought-provoking journey awaits...";
+        exampleDisplay.innerText = "";
+      } else if (clickCount === 2) {
+        quoteDisplay.innerText = "Every great mind begins with a great question...";
+        exampleDisplay.innerText = "";
+      } else {
+        const randomIndex = Math.floor(Math.random() * wisdomData.length);
+        const wisdom = wisdomData[randomIndex];
 
-            if (clickCount === 1) {
-                quoteDisplay.innerText = "Hello, traveler. A thought-provoking journey awaits...";
-                exampleDisplay.innerText = "";
-            } else if (clickCount === 2) {
-                quoteDisplay.innerText = "Every great mind begins with a great question...";
-                exampleDisplay.innerText = "";
-            } else {
-                const randomIndex = Math.floor(Math.random() * wisdomData.length);
-                const wisdom = wisdomData[randomIndex];
-
-                quoteDisplay.innerText = wisdom.quote;
-                exampleDisplay.innerText = wisdom.example;
-
-                if (wisdom.application && Array.isArray(wisdom.application)) {
-                    wisdom.application.forEach(point => {
-                        const li = document.createElement("li");
-                        li.textContent = point;
-                        applicationList.appendChild(li);
-                    });
-                }
-            }
-        }
-    </script>
-
+        quoteDisplay.innerText = wisdom.quote;
+        exampleDisplay.innerHTML = `
+          <p>${wisdom.example}</p>
+          <ul style="text-align:left; max-width: 600px; margin: 10px auto;">
+            ${wisdom.application.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        `;
+        journeyBtn.innerText = "Reveal Another Thought";
+        clickCount = 2;
+      }
+    }
+  </script>
 </body>
 </html>
