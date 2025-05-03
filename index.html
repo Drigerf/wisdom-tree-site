@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisdom Tree - Thoughtful Reflections</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #000F1F, #002040, #001E3C, #003355);
+            background-size: 300% 300%;
+            animation: darkBackgroundFlow 10s infinite alternate ease-in-out;
+            color: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+        }
+
+        @keyframes darkBackgroundFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        button {
+            background: linear-gradient(45deg, #002244, #003366);
+            border: none;
+            padding: 10px 30px;
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+            margin: 40px auto;
+            display: block;
+            border-radius: 40px;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .quote {
+            margin-top: 30px;
+            font-size: 1.8em;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.4);
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.3;
+        }
+
+        .example {
+            font-size: 1.2em;
+            font-style: italic;
+            color: #DDD;
+            max-width: 70%;
+            margin: 10px auto;
+        }
+
+        .application {
+            font-size: 1.1em;
+            color: #BBB;
+            max-width: 70%;
+            margin: 20px auto;
+            padding-left: 0;
+            list-style-type: disc;
+            text-align: left;
+        }
+        .application li {
+            margin-bottom: 8px;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: riseBubbles 6s infinite ease-in-out;
+        }
+
+        @keyframes riseBubbles {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-700px) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="revealWisdom()">Begin Your Journey</button>
+    <p class="quote" id="quoteDisplay"></p>
+    <p class="example" id="exampleDisplay"></p>
+    <ul id="applicationList" class="application"></ul>
+
+    <script>
+        function createBubble() {
+            let bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+            document.body.appendChild(bubble);
+
+            bubble.style.left = Math.random() * window.innerWidth + "px";
+            bubble.style.animationDuration = 3 + Math.random() * 3 + "s";
+
+            setTimeout(() => { bubble.remove(); }, 6000);
+        }
+
+        setInterval(createBubble, 500);
+
+        let clickCount = 0;
+        const wisdomData = [
+        {
+    quote: "Know thyself. – Socrates",
+    example: "A student began noticing they were more productive in the morning and started organizing their study schedule around that time.",
+    application: [
+        "Reflect on your habits and preferences.",
+        "Pay attention to when you're most focused.",
+        "Use self-knowledge to make better decisions."
+    ]
+},
+{
+    quote: "Be yourself; everyone else is already taken. – Oscar Wilde",
+    example: "Someone realized they didn’t enjoy popular hobbies and instead focused on drawing, which brought them joy and confidence.",
+    application: [
+        "Choose activities that feel authentic to you.",
+        "Express your personality without fear of judgment.",
+        "Appreciate your uniqueness rather than comparing yourself."
+    ]
+},
+{
+    quote: "We are what we repeatedly do. – Aristotle",
+    example: "A person practiced piano every day, turning a simple routine into real progress over time.",
+    application: [
+        "Develop positive daily habits.",
+        "Stick with routines even when you don’t see immediate results.",
+        "Understand that small efforts add up."
+    ]
+},
+{
+    quote: "The only true wisdom is knowing that you know nothing. – Socrates",
+    example: "During a group discussion, a participant asked thoughtful questions instead of pretending to know everything, leading to better understanding.",
+    application: [
+        "Be curious and ask questions.",
+        "Admit when you don’t know something.",
+        "Keep learning and growing through humility."
+    ]
+},
+{
+    quote: "The eye sees only what the mind is prepared to comprehend. – Robertson Davies",
+    example: "After learning basic coding, websites began to look different to someone—they now saw structure where before there was only design.",
+    application: [
+        "Stay open to learning new perspectives.",
+        "Recognize that growth changes how you see the world.",
+        "Seek knowledge to expand your awareness."
+    ]
+},
+{
+    quote: "Reality is merely an illusion, albeit a persistent one. – Albert Einstein",
+    example: "A child imagined monsters under their bed until they learned it was only shadows and furniture.",
+    application: [
+        "Challenge your assumptions.",
+        "Look deeper before reacting to appearances.",
+        "Understand that perception is shaped by beliefs."
+    ]
+},
+{
+    quote: "Happiness depends upon ourselves. – Aristotle",
+    example: "Someone felt lonely until they started volunteering and found joy in helping others.",
+    application: [
+        "Take responsibility for your own happiness.",
+        "Engage in actions that align with your values.",
+        "Focus on what you can control in your life."
+    ]
+},
+{
+    quote: "Wonder is the beginning of wisdom. – Socrates",
+    example: "A student asked why the sky is blue, which led them into a lifelong interest in science.",
+    application: [
+        "Let your curiosity guide you.",
+        "Ask questions even if they seem simple.",
+        "Explore topics that fascinate you."
+    ]
+},
+{
+    quote: "Man is the measure of all things. – Protagoras",
+    example: "Two people viewed the same artwork differently—each interpretation reflected their own life experience.",
+    application: [
+        "Respect diverse perspectives.",
+        "Recognize that meaning can be personal.",
+        "Understand that experience shapes perception."
+    ]
+},
+{
+    quote: "He who opens a school door, closes a prison. – Victor Hugo",
+    example: "A town invested in education programs, and over time, saw a drop in crime rates and more community involvement.",
+    application: [
+        "Support and value education.",
+        "Share knowledge with others.",
+        "Recognize learning as a tool for empowerment."
+    ]
+},
+{
+    quote: "I think, therefore I am. – René Descartes",
+    example: "By questioning their assumptions, a student began to form more independent and critical thoughts.",
+    application: [
+        "Take time to think deeply about issues.",
+        "Question what you hear before accepting it.",
+        "Value your ability to reason and reflect."
+    ]
+},
+{
+    quote: "The unexamined life is not worth living. – Socrates",
+    example: "Someone felt stuck in routine until they began reflecting on what truly brought them joy and purpose.",
+    application: [
+        "Spend time reflecting on your goals.",
+        "Ask yourself what really matters to you.",
+        "Adjust your life to align with your values."
+    ]
+},
+{
+    quote: "All that we see or seem is but a dream within a dream. – Edgar Allan Poe",
+    example: "A teen realized social media often gave a false sense of reality and started limiting their use to feel more grounded.",
+    application: [
+        "Be mindful of illusions, especially online.",
+        "Check your assumptions against reality.",
+        "Focus on real-world experiences and connections."
+    ]
+},
+{
+    quote: "You can discover more about a person in an hour of play than in a year of conversation. – Plato",
+    example: "A group activity revealed one student's kindness and leadership in ways no classroom could.",
+    application: [
+        "Observe actions, not just words.",
+        "Engage in interactive experiences to learn about others.",
+        "Value play and creativity as part of personal growth."
+    ]
+},
+{
+    quote: "It is not length of life, but depth of life. – Ralph Waldo Emerson",
+    example: "Instead of chasing achievements, someone focused on meaningful relationships and moments.",
+    application: [
+        "Focus on quality, not just quantity.",
+        "Be present in daily experiences.",
+        "Seek purpose in your actions."
+    ]
+},
+{
+    quote: "No man ever steps in the same river twice. – Heraclitus",
+    example: "A student revisited an old book and understood it differently with new life experience.",
+    application: [
+        "Recognize that you and the world are always changing.",
+        "Revisit ideas with fresh eyes.",
+        "Be open to growth and transformation."
+    ]
+},
+{
+    quote: "What is right is not always popular, and what is popular is not always right. – Albert Einstein",
+    example: "A young person stood up for a classmate being bullied, even though others stayed silent.",
+    application: [
+        "Speak up when you see injustice.",
+        "Stay true to your values, even under pressure.",
+        "Think independently rather than following the crowd."
+    ]
+},
+{
+    quote: "He who has a why to live can bear almost any how. – Friedrich Nietzsche",
+    example: "Despite tough exams, a student stayed motivated by remembering their dream of becoming a doctor.",
+    application: [
+        "Find your personal purpose or goal.",
+        "Use your “why” to push through hard times.",
+        "Reconnect with your deeper motivations regularly."
+    ]
+},
+{
+    quote: "Liberty consists in doing what one desires. – John Stuart Mill",
+    example: "After realizing they weren’t truly choosing their path, someone took time to explore what they actually enjoyed.",
+    application: [
+        "Discover what freedom means to you.",
+        "Make decisions based on your true desires, not others’ expectations.",
+        "Understand that responsibility comes with freedom."
+    ]
+},
+{
+    quote: "To live is the rarest thing in the world. Most people exist, that is all. – Oscar Wilde",
+    example: "After years of routine, someone decided to travel, try new hobbies, and take more emotional risks.",
+    application: [
+        "Challenge yourself to step out of your comfort zone.",
+        "Make room for joy and spontaneity.",
+        "Live intentionally, not passively."
+    ]
+},
+    {
+        quote: "What is real is not always visible.",
+        example: "People often rely on their senses to judge what is real, but things like love, thoughts, and dreams are just as real.",
+        application: [
+            "Trust your inner feelings and ideas, even if they can’t be seen.",
+            "Be open-minded about other people's experiences.",
+            "Take time to reflect on what really matters beyond the physical world."
+        ]
+    },
+    {
+        quote: "Big questions help us understand the world.",
+        example: "Asking questions like 'Why am I here?' or 'What is good?' opens up deep thinking and insight.",
+        application: [
+            "Start a list of big questions you wonder about.",
+            "Talk about these questions with friends or teachers.",
+            "Don’t be afraid to explore complex ideas."
+        ]
+    },
+    {
+        quote: "Fairness is treating people with equal respect.",
+        example: "When two classmates disagreed, they listened to each other and found a solution that respected both sides.",
+        application: [
+            "Listen before judging.",
+            "Treat others how you’d want to be treated.",
+            "Consider everyone’s needs before deciding something."
+        ]
+    },
+    {
+        quote: "Your choices shape who you are.",
+        example: "Choosing to help someone instead of ignoring them built trust and kindness.",
+        application: [
+            "Think before acting, especially when it affects others.",
+            "Take responsibility for your actions.",
+            "Reflect on past decisions and what they taught you."
+        ]
+    },
+    {
+        quote: "You can learn from mistakes.",
+        example: "Failing a test became a chance to study better and understand more.",
+        application: [
+            "See mistakes as steps, not the end.",
+            "Ask what each mistake can teach you.",
+            "Keep trying, even after failing."
+        ]
+    },
+    {
+        quote: "Everyone sees the world differently.",
+        example: "Two people told very different stories of the same day, both true in their own way.",
+        application: [
+            "Be curious about others’ perspectives.",
+            "Don’t assume your view is the only one.",
+            "Discuss different opinions respectfully."
+        ]
+    },
+    {
+        quote: "Truth matters, even when it’s hard to face.",
+        example: "Telling the truth about breaking something helped repair trust.",
+        application: [
+            "Be honest, even if it's uncomfortable.",
+            "Correct false assumptions when you notice them.",
+            "Value honesty in others too."
+        ]
+    },
+    {
+        quote: "Asking ‘Why?’ leads to wisdom.",
+        example: "A child who always asked why eventually discovered their love for science.",
+        application: [
+            "Ask deep questions daily.",
+            "Don’t settle for 'just because.'",
+            "Explore your answers through books, people, and experience."
+        ]
+    },
+    {
+        quote: "Rules help us live together peacefully.",
+        example: "School rules made it easier for everyone to feel safe and respected.",
+        application: [
+            "Understand the reason behind rules.",
+            "Suggest better rules when something doesn’t work.",
+            "Follow rules that create fairness and safety."
+        ]
+    },
+    {
+        quote: "Kindness is a powerful force.",
+        example: "A small act of kindness lifted someone’s mood for the whole day.",
+        application: [
+            "Look for ways to be kind each day.",
+            "Say kind things even when it’s difficult.",
+            "Notice how kindness spreads from one act to another."
+        ]
+    },
+    {
+        quote: "We don’t need to agree to understand.",
+        example: "Two students had different beliefs but respected each other’s opinions.",
+        application: [
+            "Listen to people who think differently.",
+            "Ask questions instead of arguing.",
+            "Look for common ground."
+        ]
+    },
+    {
+        quote: "Thinking takes practice, like a skill.",
+        example: "Reading a challenging book stretched the mind and sparked new ideas.",
+        application: [
+            "Challenge yourself with hard problems.",
+            "Spend time thinking deeply about one idea.",
+            "Talk to others who challenge your thinking."
+        ]
+    },
+    {
+        quote: "Being free means choosing your path.",
+        example: "Choosing a different subject than everyone else led to discovering a new passion.",
+        application: [
+            "Think for yourself, even if it’s unpopular.",
+            "Explore what truly interests you.",
+            "Make choices that reflect your values."
+        ]
+    },
+    {
+        quote: "Imagination helps us understand life.",
+        example: "Imagining life as someone else helped develop empathy.",
+        application: [
+            "Use imagination to solve problems.",
+            "Read stories from different cultures.",
+            "Imagine others’ feelings and experiences."
+        ]
+    },
+    {
+        quote: "Change is part of growing.",
+        example: "Moving to a new school felt scary at first but led to great friendships.",
+        application: [
+            "Accept change as part of life.",
+            "Look for opportunities in new situations.",
+            "Help others who are facing changes too."
+        ]
+    },
+    {
+        quote: "You can’t always control what happens, but you can control how you respond.",
+        example: "After losing a game, staying calm helped build respect among teammates.",
+        application: [
+            "Take a breath before reacting.",
+            "Focus on what you can do next.",
+            "Learn from tough moments instead of blaming."
+        ]
+    },
+    {
+        quote: "We grow by asking difficult questions.",
+        example: "Wondering about justice led to a project that helped others speak up.",
+        application: [
+            "Explore big ideas through journaling or drawing.",
+            "Discuss your questions with friends or teachers.",
+            "Let your questions inspire positive action."
+        ]
+    },
+    {
+        quote: "Good ideas can come from anywhere.",
+        example: "A quiet student offered a solution no one had thought of.",
+        application: [
+            "Invite everyone to share ideas.",
+            "Value your own thoughts, even if they’re unusual.",
+            "Keep an open mind in every conversation."
+        ]
+    },
+    {
+        quote: "You are part of something bigger than yourself.",
+        example: "Helping in a community garden gave a sense of purpose and connection.",
+        application: [
+            "Volunteer or help others regularly.",
+            "Think about how your actions affect others.",
+            "Celebrate being part of a group or cause."
+        ]
+    },
+    {
+        quote: "Courage means doing the right thing, even when it’s hard.",
+        example: "Speaking up against unfair treatment helped others feel safer.",
+        application: [
+            "Stand up for what you believe is right.",
+            "Practice small acts of bravery daily.",
+            "Support others who show courage."
+        ]
+    },
+    {
+    quote: "What is real? – Plato",
+    example: "Sometimes we believe things just because we've always heard them, but questioning and observing helps uncover what’s true.",
+    application: [
+        "Question assumptions you hear often.",
+        "Observe things firsthand before making conclusions.",
+        "Talk with others who see the world differently."
+    ]
+},
+{
+    quote: "Why do we exist? – Aristotle",
+    example: "Thinking about your purpose helps guide your decisions, even when you're young.",
+    application: [
+        "Reflect on what brings you joy or meaning.",
+        "Set small goals that align with your values.",
+        "Think about how your actions help others."
+    ]
+},
+{
+    quote: "Can machines think? – Alan Turing",
+    example: "Technology is growing fast—thinking critically about it helps us use it wisely.",
+    application: [
+        "Ask questions about how technology affects your life.",
+        "Don’t rely on machines for every task.",
+        "Balance screen time with real-world thinking."
+    ]
+},
+{
+    quote: "Is it ever okay to lie? – Immanuel Kant",
+    example: "Telling the truth builds trust, but some situations are complex and need deep thought.",
+    application: [
+        "Be honest whenever possible.",
+        "Think about how your words affect others.",
+        "Learn from moments when honesty is hard."
+    ]
+},
+{
+    quote: "Are we free? – Jean-Paul Sartre",
+    example: "You may not control everything, but your choices shape your path.",
+    application: [
+        "Take responsibility for your actions.",
+        "Don’t blame others for your choices.",
+        "Use your freedom to grow and help others."
+    ]
+},
+{
+    quote: "What is beauty? – Confucius",
+    example: "What’s beautiful to one person may not be to another—appreciating different perspectives is key.",
+    application: [
+        "Don’t judge things just by looks.",
+        "Find beauty in kindness and creativity.",
+        "Respect others’ tastes and values."
+    ]
+},
+{
+    quote: "Can we know anything for sure? – René Descartes",
+    example: "Doubting is part of thinking clearly—questioning helps build stronger understanding.",
+    application: [
+        "Ask questions when learning something new.",
+        "Don't accept things blindly—look for evidence.",
+        "Trust your reasoning and improve it over time."
+    ]
+},
+{
+    quote: "What is justice? – Socrates",
+    example: "Fairness matters in how we treat others and how we want to be treated.",
+    application: [
+        "Stand up when you see something unfair.",
+        "Be fair when working or playing with others.",
+        "Listen to both sides of a story."
+    ]
+},
+{
+    quote: "What is time? – Augustine",
+    example: "Time can feel fast or slow, but how we use it shapes who we become.",
+    application: [
+        "Use time wisely to grow and rest.",
+        "Don’t rush—focus on what matters.",
+        "Appreciate quiet and active moments alike."
+    ]
+},
+{
+    quote: "Is there such a thing as nothing? – Parmenides",
+    example: "Even 'nothing' can lead to powerful questions and ideas.",
+    application: [
+        "Take time to be still and think.",
+        "Don’t fear silence—it can help you learn.",
+        "Ask questions others might ignore."
+    ]
+},
+{
+    quote: "What is knowledge? – Socrates",
+    example: "Knowledge isn’t just facts—it’s also knowing how to think and ask good questions.",
+    application: [
+        "Be curious, not just memorizing.",
+        "Try to understand how things work.",
+        "Discuss ideas with others to learn more."
+    ]
+},
+{
+    quote: "Is happiness the goal of life? – Epicurus",
+    example: "True happiness often comes from simple joys and meaningful connections.",
+    application: [
+        "Notice what makes you feel truly happy.",
+        "Don’t chase happiness through things alone.",
+        "Spend time with people you care about."
+    ]
+},
+{
+    quote: "Do we see the world as it is? – Kant",
+    example: "Our minds shape what we see—understanding this helps us stay open-minded.",
+    application: [
+        "Realize your perspective is one of many.",
+        "Listen to how others experience life.",
+        "Be curious about different viewpoints."
+    ]
+},
+{
+    quote: "Can animals think? – Jeremy Bentham",
+    example: "Recognizing animal intelligence helps us treat all creatures with respect.",
+    application: [
+        "Observe how animals behave and learn.",
+        "Be kind to pets and wildlife.",
+        "Support animal-friendly choices when possible."
+    ]
+},
+{
+    quote: "What makes something right or wrong? – John Stuart Mill",
+    example: "Thinking about consequences helps us act wisely and kindly.",
+    application: [
+        "Before acting, consider how it affects others.",
+        "Try to choose kindness even when it's hard.",
+        "Talk about values with people you trust."
+    ]
+},
+{
+    quote: "Can we live without rules? – Thomas Hobbes",
+    example: "Rules may feel limiting, but they often keep us safe and fair.",
+    application: [
+        "Understand why rules exist before rejecting them.",
+        "Help make better rules when needed.",
+        "Follow rules that protect and support others."
+    ]
+},
+{
+    quote: "What is a good life? – Aristotle",
+    example: "A good life balances purpose, relationships, and learning.",
+    application: [
+        "Set goals that inspire you.",
+        "Nurture friendships and family bonds.",
+        "Keep learning and exploring new ideas."
+    ]
+},
+{
+    quote: "What is the mind? – Descartes",
+    example: "Understanding the mind helps us control emotions and solve problems better.",
+    application: [
+        "Practice calming your thoughts when overwhelmed.",
+        "Talk about your feelings openly.",
+        "Think through problems before reacting."
+    ]
+},
+{
+    quote: "Can we know the future? – David Hume",
+    example: "We can't predict everything, but preparing and staying flexible helps us cope.",
+    application: [
+        "Plan ahead, but be open to changes.",
+        "Don’t fear the unknown—adapt with courage.",
+        "Learn from surprises and mistakes."
+    ]
+},
+{
+    quote: "Is truth always simple? – Ludwig Wittgenstein",
+    example: "Some truths are complex, and that’s okay—digging deeper often leads to insight.",
+    application: [
+        "Don’t settle for easy answers.",
+        "Explore different sides of an issue.",
+        "Ask others what they think is true."
+    ]
+}
+   
+            // Add 92 more entries here using the same structure
+        ];
+
+        function revealWisdom() {
+            clickCount++;
+
+            let quoteDisplay = document.getElementById("quoteDisplay");
+            let exampleDisplay = document.getElementById("exampleDisplay");
+            let applicationList = document.getElementById("applicationList");
+            applicationList.innerHTML = ""; // clear old tips
+
+            if (clickCount === 1) {
+                quoteDisplay.innerText = "Hello, traveler. A thought-provoking journey awaits...";
+                exampleDisplay.innerText = "";
+            } else if (clickCount === 2) {
+                quoteDisplay.innerText = "Every great mind begins with a great question...";
+                exampleDisplay.innerText = "";
+            } else {
+                const randomIndex = Math.floor(Math.random() * wisdomData.length);
+                const wisdom = wisdomData[randomIndex];
+
+                quoteDisplay.innerText = wisdom.quote;
+                exampleDisplay.innerText = wisdom.example;
+
+                if (wisdom.application && Array.isArray(wisdom.application)) {
+                    wisdom.application.forEach(point => {
+                        const li = document.createElement("li");
+                        li.textContent = point;
+                        applicationList.appendChild(li);
+                    });
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
